@@ -1,0 +1,57 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Jun 15 15:44:16 2025
+
+@author: lorddestruction
+"""
+
+import base64
+import codecs
+
+def encode_string(text):
+    base64_encoded = base64.b64encode(text.encode()).decode()
+    reversed_text = base64_encoded[::-1]
+    return codecs.encode(reversed_text, 'rot_13')
+
+def decode_string(text):
+    rot13_decoded = codecs.decode(text, 'rot_13')
+    reversed_text = rot13_decoded[::-1]
+    try:
+        decoded = base64.b64decode(reversed_text).decode()
+        return decoded
+    except Exception as e:
+        return f"[!] Error al decodificar: {e}"
+
+def print_menu():
+    print("-" * 30 + " MENU " + "-" * 30)
+    print("1. Encriptar (Base64 + rot13)")
+    print("2. Desencriptar (rot13 + Base64)")
+    print("3. Salir")
+    print("-" * 67)
+
+def main():
+    while True:
+        print_menu()
+        try:
+            choice = int(input("Selecciona una opción [1-3]: "))
+        except ValueError:
+            print("[!] Ingresa un número válido.")
+            continue
+
+        if choice == 1:
+            clear_text = input("Texto a encriptar: ")
+            result = encode_string(clear_text)
+            print("\n[+] Resultado encriptado:\n" + result + "\n")
+        elif choice == 2:
+            coded_text = input("Texto a desencriptar: ")
+            result = decode_string(coded_text)
+            print("\n[+] Resultado desencriptado:\n" + result + "\n")
+        elif choice == 3:
+            print("Saliendo...")
+            break
+        else:
+            print("[!] Opción inválida.")
+
+if __name__ == '__main__':
+    main()
