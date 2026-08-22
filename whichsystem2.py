@@ -43,5 +43,3 @@ if __name__ == "__main__":
     os_detectado = detect_os_from_ttl(ttl)
     
     print(f"\n{ip} → TTL: {ttl if ttl is not None else 'N/A'} → Sistema estimado: {os_detectado}")
-
-
